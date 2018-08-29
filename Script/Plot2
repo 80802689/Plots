@@ -1,0 +1,16 @@
+
+getwd()
+setwd("C:/Users/cesar ascencio/Desktop/Data_Science_especialización/Curso4_Exploratory Data Analisis/Semana 1/Examen1")
+
+datos = read.table("household_power_consumption.txt", sep = ";", 
+                   header = TRUE,stringsAsFactors = FALSE,dec = ".") ##
+
+datos$Date<-as.Date(datos$Date, format='%d/%m/%Y')
+data<-subset(datos,datos$Date >= "2007-2-1" & datos$Date <= "2007-2-2")
+data$Global_active_power<-as.numeric(data$Global_active_power)
+
+data$var1 <- strptime(paste(data$Date,data$Time),format="%Y-%m-%d  %H:%M:%S")
+png("Plot_2.png", width = 480, height = 480)
+with(data,plot(data$var1, data$Global_active_power, type = "l",
+        ylab = "Global active power (kilowatts)",xlab = ""))
+dev.off()
